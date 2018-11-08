@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Random square</title>
+		<script>
+			function randomColor() {
+				var hexAlphabet = '0123456789ABCDEF';
+				var color = '';
+				for (var i = 0; i < 6; i++)
+					color += hexAlphabet[Math.floor(Math.random() * 16)];
+				return '#' + color;
+			}
+
+			function renderSquareInternal(x, y, edge_length, color) {
+				var square = document.createElement('div');
+				square.style.position = 'absolute';
+				square.style.left = x + 'px';
+				square.style.top = y + 'px';
+				square.style.width = square.style.height = edge_length + 'px';
+				square.style.background = color;				
+				document.body.appendChild(square);
+			}
+
+			function renderSquare() {
+				var edge_length = Math.random() * 600;
+				var x = Math.random() * (window.innerWidth - edge_length);
+				var y = Math.random() * (window.innerHeight - edge_length);				
+				renderSquareInternal(x, y, edge_length, randomColor());
+			}
+
+			function animateSquares(timeout) {
+				console.log(setInterval(function () {
+					document.body.innerHTML = ''; renderSquare();
+				}, timeout));
+			}
+		</script>		
+	</head>
+	<body onload="animateSquares(500)">		
+	</body>
+</html>
